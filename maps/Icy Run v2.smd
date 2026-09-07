@@ -1,0 +1,80 @@
+[MAP]
+{
+	Description=Perhaps some action would warm you up. Small map for short intense games. V2.;
+	TidalStrength=0;
+	Gravity=120;						//in units/sec^2
+	MaxMetal=1.351;						//how much metal a map square with the maximum metal value gives
+	ExtractorRadius=100;				//radius that a single extractor(mine) extracts from
+	MapHardness=100;
+
+	[ATMOSPHERE]
+	{
+		FogColor=0.75 0.7 0.65;
+		FogStart=0.3;
+
+		CloudColor=0.2 0.2 0.5;
+		SkyColor=0 0 0.3;
+
+		SunColor=0.7 0.7 1;
+		CloudDensity=0.5;
+
+		MinWind=14;
+		MaxWind=27;
+	}
+	[WATER]
+	{
+		WaterBaseColor=0.1 0.1 1;  //color at water surface
+		WaterAbsorb=0.004 0.004 0.002;  //how fast different colors are absorbed by the water
+		WaterMinColor=0.1 0.1 0.3;  //the min value the water colors will go down to
+		WaterPlaneColor= 0.7 0.7 1;	}
+	[LIGHT]
+	{
+		SunDir=0.383 0.573 0.188;						//direction of sun (spring will normalize it later)(y component is upward)
+		
+		GroundAmbientColor=0.4 0.6 0.5;		//ambient (non sun lit) color of ground (and grass etc)
+		GroundSunColor=0.6 0.4 0.5;			//color of ground where fully sun lit (added to ambient)
+		GroundShadowDensity=1.0;			//how far from the non shadowed to the ambient color stuff in shadow will go
+
+		UnitAmbientColor=0.5 0.5 0.8;		//ambient (non sun lit) color of units (and wreckage etc)
+		UnitSunColor=0.8 0.8 0.8;			//color of units where fully sun lit (added to ambient)
+		UnitShadowDensity=0.7;				//how far from the non shadowed to the ambient color stuff in shadow will go
+	}
+	[TERRAINTYPE1]
+	{
+		name=Mountain;
+		hardness=25;
+		tankmovespeed=1;
+		kbotmovespeed=1;
+		hovermovespeed=1;
+		shipmovespeed=1;
+	}
+	[TERRAINTYPE0]
+	{
+		name=Snow;
+		hardness=5;
+		tankmovespeed=1;
+		kbotmovespeed=1;
+		hovermovespeed=2;
+		shipmovespeed=1;
+	}
+	[TEAM0]
+	{
+		StartPosX=200;
+		StartPosZ=1400;
+	}
+	[TEAM1]
+	{
+		StartPosX=5870;
+		StartPosZ=400;
+	}
+	[TEAM2]
+	{
+		StartPosX=800;
+		StartPosZ=200;
+	}
+	[TEAM3]
+	{
+		StartPosX=5500;
+		StartPosZ=1700;
+	}
+}
