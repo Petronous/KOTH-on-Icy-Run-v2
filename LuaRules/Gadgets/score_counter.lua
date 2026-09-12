@@ -2,9 +2,9 @@ function gadget:GetInfo()
 	return {
 		name    = "KOTH score counter",
 		desc    = "Counts the allyteam score based on the captured mexes in the 'hill' area",
-		author  = "Perrold",
+		author  = "Perrold (Petronous on GitHub)",
 		date    = "2026",
-		license = "Public domain",
+		license = "The Unlicense",
 		layer   = 0,
 		enabled = true -- loaded by default?
 	}
