@@ -34,7 +34,6 @@ if gadgetHandler:IsSyncedCode() then
 
 	local function IsMex(unitDefID)
 		local ud = UnitDefs[unitDefID]
-		Spring.Echo(ud.name)
 		return ud.customParams.metal_extractor_mult ~= nil
 	end
 
@@ -47,7 +46,6 @@ if gadgetHandler:IsSyncedCode() then
 	end
 
 	function gadget:Initialize()
-		Spring.Echo("-------------\n------------\nSCORE COUNTER INIT-----------\n------------\n")
 		for _,unitID in ipairs(Spring.GetAllUnits()) do
 			local teamID = spGetUnitTeam(unitID)
 			local unitDefID = spGetUnitDefID(unitID)
@@ -59,26 +57,20 @@ if gadgetHandler:IsSyncedCode() then
 	end
 
 	function gadget:UnitCreated(unitID, unitDefID)
-		Spring.Echo("-------------\n------------\nSCORE COUNTER UNIT CREATED-----------\n------------\n")
-		Spring.Echo("uID: "..unitID)
 		local stunned_or_inbuild, _, inbuild = spGetUnitIsStunned(unitID)
 		if stunned_or_inbuild ~= nil and inbuild then
 			return
 		end
-		Spring.Echo("NOT INBUILD")
 
 		if not IsMex(unitDefID) then
 			return
 		end
-		Spring.Echo("IS MEX")
 
 		local allyTeamID = spGetUnitAllyTeam(unitID)
-		Spring.Echo("aTID: "..allyTeamID)
 		if allyTeamMexes[allyTeamID] == nil then
 			allyTeamMexes[allyTeamID] = {}
 		end
 		allyTeamMexes[allyTeamID][unitID] = true
-		Spring.Echo("aTID.uID: "..tostring(allyTeamMexes[allyTeamID][unitID]))
 	end
 
 	function gadget:UnitFinished(unitID, unitDefID, unitTeam)
@@ -86,7 +78,6 @@ if gadgetHandler:IsSyncedCode() then
 	end
 
 	function gadget:UnitDestroyed(unitID, unitDefID)
-		Spring.Echo("Unit destroyed: "..unitID)
 		if not IsMex(unitDefID) then
 			return
 		end
@@ -110,12 +101,8 @@ if gadgetHandler:IsSyncedCode() then
 		if n % 120 ~= 27 then
 			return
 		end
-		Spring.Echo(allyTeamMexes)
 		for aTID, mexes in pairs(allyTeamMexes) do
 			local score = allyTeamScores[aTID] or 0
-			for mID, _ in pairs(mexes) do
-				Spring.Echo("mID: "..mID)
-			end
 			allyTeamScores[aTID] = score + GetTableSize(mexes)
 			spSendMessage("Score for "..aTID..": "..allyTeamScores[aTID])
 		end
