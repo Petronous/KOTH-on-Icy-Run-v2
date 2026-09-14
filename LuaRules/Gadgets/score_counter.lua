@@ -10,6 +10,11 @@ function gadget:GetInfo()
 	}
 end
 
+-- Certain parts are copied from / inspired by Chilli Core Selector by KingRaptor and GoogleFrog,
+-- available at https://github.com/ZeroK-RTS/Zero-K/blob/master/LuaUI/Widgets/gui_chili_core_selector.lua
+-- Certain parts are similarly also copied from / inspired by Shield Link by Lurker, available at
+-- https://github.com/ZeroK-RTS/Zero-K/blob/master/LuaRules/Gadgets/unit_shield_link.lua
+
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 
