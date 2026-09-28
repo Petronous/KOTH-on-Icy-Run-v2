@@ -28,7 +28,6 @@ if gadgetHandler:IsSyncedCode() then
 	local spSetUnitRulesParam   = Spring.SetUnitRulesParam
 	local spGetUnitRulesParam   = Spring.GetUnitRulesParam
 	local spGetAllyTeamList		= Spring.GetAllyTeamList
-	local spSendMessage			= Spring.SendMessage
 	local SendToUnsynced = SendToUnsynced
 
 	local allyTeamScores = {}
@@ -58,6 +57,7 @@ if gadgetHandler:IsSyncedCode() then
 		end
 		for _,atID in ipairs(spGetAllyTeamList()) do
 			allyTeamScores[atID] = 0
+			allyTeamMexes[atID] = {}
 		end
 	end
 
@@ -109,13 +109,30 @@ if gadgetHandler:IsSyncedCode() then
 		for aTID, mexes in pairs(allyTeamMexes) do
 			local score = allyTeamScores[aTID] or 0
 			allyTeamScores[aTID] = score + GetTableSize(mexes)
-			spSendMessage("Score for "..aTID..": "..allyTeamScores[aTID])
 		end
-		SendToUnsynced("ScoreCounterUpdate")
+		SendToUnsynced("ScoreCounterUpdate", allyTeamScores)
 	end
 else  -- end of synced code, start of unsynced code
-	local function HandleScoreCounterUpdate()
-		
+	
+	local spSendMessage			= Spring.SendMessage
+
+	local function HandleScoreCounterUpdate(_, allyTeamScores) -- first arg is name of event
+		if Script.LuaUI("KOTH_ScoreChange") then
+			Script.LuaUI.KOTH_ScoreChange(allyTeamScores)
+		else
+			spSendMessage("No ScoreChange listener widget registered!")
+			for aTID, score in pairs(allyTeamScores) do
+				spSendMessage("Score for "..aTID..": "..score)
+			end
+		end
+	end
+
+	function gadget:Initialize()
+		gadgetHandler:AddSyncAction("ScoreCounterUpdate", HandleScoreCounterUpdate)
+	end
+
+	function gadget:Shutdown()
+		gadgetHandler:RemoveSyncAction("ScoreCounterUpdate")
 	end
 
 end  -- end of unsynced code
