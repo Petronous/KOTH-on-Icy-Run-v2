@@ -55,9 +55,15 @@ if gadgetHandler:IsSyncedCode() then
 			local unitDefID = spGetUnitDefID(unitID)
 			gadget:UnitCreated(unitID, unitDefID, teamID)
 		end
+		local gaiaTeam = Spring.GetGaiaTeamID()
+		local _,_,_,_,_, gaiaAlliance = spGetTeamInfo(gaiaTeam, false)
 		for _,atID in ipairs(spGetAllyTeamList()) do
-			allyTeamScores[atID] = 0
-			allyTeamMexes[atID] = {}
+			if atID == gaiaAlliance then 
+				Spring.Echo("AllyTeam " .. atID .. " is Gaia, SKIPPING")
+			else
+				allyTeamScores[atID] = 0
+				allyTeamMexes[atID] = {}
+			end
 		end
 	end
 
